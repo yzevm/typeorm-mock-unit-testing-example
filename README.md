@@ -1,6 +1,7 @@
 ## TypeORM mock unit testing examples with Jest and Mocha
 
-Example how to mock TypeORM for your blaze unit tests with Mocha and Jest
+Example how to mock TypeORM for your blaze unit tests with Mocha and Jest.
+It's a simple `express` server
 
 [![Build Status][travis-image]][travis-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
@@ -9,19 +10,31 @@ Example how to mock TypeORM for your blaze unit tests with Mocha and Jest
 
 ## Usage
 
+Testing commands
+
 ```sh
 # install packages
 npm install
 
-# run Mocha unit tests
+# run Mocha unit-tests
 npm run test:mocha
 
-# run Jest unit tests
+# run Jest unit-tests
 npm run test:jest
 
 # run e2e tests
 docker-compose up -d
 npm run test:e2e
+```
+
+Development commands
+
+```sh
+# run express server after changes
+npm start
+
+# build express server
+npm run build
 ```
 
 ## Example
