@@ -5,6 +5,7 @@ It's a simple `express` server
 
 [![Build Status][travis-image]][travis-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
+[![StackOverflow Question][so-image]][so-url]
 [![Contributions welcome][pr-image]][pr-url]
 [![License: MIT][license-image]][license-url]
 
@@ -95,6 +96,8 @@ describe('mocha => typeorm => getManager', () => {
 [travis-url]: https://travis-ci.org/yegorzaremba/typeorm-mock-unit-testing-example
 [coveralls-image]: https://coveralls.io/repos/github/YegorZaremba/typeorm-mock-unit-testing-example/badge.svg?branch=master
 [coveralls-url]: https://coveralls.io/github/YegorZaremba/typeorm-mock-unit-testing-example?branch=master
+[so-image]: https://img.shields.io/badge/StackOverflow-Question-green.svg
+[so-url]: https://stackoverflow.com/q/51482701/10432429
 [pr-image]: https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat
 [pr-url]: https://github.com/yegorzaremba/typeorm-mock-unit-testing-example/issues
 [license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
