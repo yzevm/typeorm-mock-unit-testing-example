@@ -12,7 +12,7 @@
     "test": "npm run test:mocha && npm run test:jest",
     "test:jest": "rimraf build && tsc && jest -c jest.unit.config.js",
     "test:mocha": "rimraf build && tsc && mocha build/test/unit/mocha/*.js",
-    "test:e2e": "rimraf build && tsc && jest -c jest.e2e.config.js jest --coverage --coverageReporters=text-lcov | coveralls",
+    "test:e2e": "rimraf build && tsc && jest -c jest.e2e.config.js --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "tslint -c tslint.json -p tsconfig.json"
   },
   "engines": {
