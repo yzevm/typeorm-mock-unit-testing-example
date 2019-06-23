@@ -10,30 +10,39 @@ It's a simple `express` server
 
 ## Usage
 
-Testing commands
+### Testing
+
+Run Mocha unit-tests
 
 ```sh
-# install packages
 npm install
-
-# run Mocha unit-tests
 npm run test:mocha
+```
 
-# run Jest unit-tests
+Run Jest unit-tests
+
+```sh
 npm run test:jest
+```
 
-# run e2e tests
+Run e2e tests
+
+```sh
 docker-compose up -d
 npm run test:e2e
 ```
 
-Development commands
+### Development
+
+Run express server after changes
 
 ```sh
-# run express server after changes
 npm start
+```
 
-# build express server
+Build express server
+
+```sh
 npm run build
 ```
 
