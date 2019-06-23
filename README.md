@@ -4,7 +4,7 @@ Example how to mock TypeORM for your blaze unit tests with Mocha and Jest
 
 [![Build Status][travis-image]][travis-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
-[![Contributions welcome][pr-image]][(pr-url]
+[![Contributions welcome][pr-image]][pr-url]
 [![License: MIT][license-image]][license-url]
 
 ## Usage
