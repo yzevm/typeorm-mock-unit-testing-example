@@ -71,8 +71,8 @@ describe('mocha => typeorm => getManager', () => {
 
 [travis-image]: https://travis-ci.org/yegorzaremba/typeorm-mock-unit-testing-example.svg?branch=master
 [travis-url]: https://travis-ci.org/yegorzaremba/typeorm-mock-unit-testing-example
-[coveralls-image]: https://coveralls.io/repos/yegorzaremba/typeorm-mock-unit-testing-example/badge.svg?branch=master&service=github
-[coveralls-url]: https://coveralls.io/github/yegorzaremba/typeorm-mock-unit-testing-example?branch=master
+[coveralls-image]: https://coveralls.io/repos/github/YegorZaremba/typeorm-mock-unit-testing-example/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/github/YegorZaremba/typeorm-mock-unit-testing-example?branch=master
 [pr-image]: https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat
 [pr-url]: https://github.com/yegorzaremba/typeorm-mock-unit-testing-example/issues
 [license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
