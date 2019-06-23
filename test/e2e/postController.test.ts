@@ -1,5 +1,5 @@
 import * as request from 'request-promise'
-import { deepEqual, notEqual } from 'assert'
+import assert from 'assert'
 import { post, images } from './utils'
 
 describe('jest => typeorm => getConnection', () => {
@@ -10,7 +10,7 @@ describe('jest => typeorm => getConnection', () => {
     }
 
     const { response } = await request.get(options)
-    deepEqual(response, [post])
+    assert.deepEqual(response, [post])
   })
 
   it('getById post route passed', async () => {
@@ -20,7 +20,7 @@ describe('jest => typeorm => getConnection', () => {
     }
 
     const { response } = await request.get(options)
-    deepEqual(response, post)
+    assert.deepEqual(response, post)
   })
 
   it('create post route passed', async () => {
@@ -31,7 +31,7 @@ describe('jest => typeorm => getConnection', () => {
     }
 
     const { response } = await request.post(options)
-    deepEqual(response.title, 'new post')
+    assert.deepEqual(response.title, 'new post')
   })
 
   it('update post route passed', async () => {
@@ -44,7 +44,7 @@ describe('jest => typeorm => getConnection', () => {
     }
 
     const result1 = await request.get(optionsGET)
-    notEqual(result1.response.title, 'new post')
+    assert.notEqual(result1.response.title, 'new post')
 
     const optionsPUT = {
       uri: `${process.env.TEST_HOST}/posts/${id}`,
@@ -53,7 +53,7 @@ describe('jest => typeorm => getConnection', () => {
     }
 
     const result2 = await request.put(optionsPUT)
-    deepEqual(result2.response.title, title)
+    assert.deepEqual(result2.response.title, title)
   })
 
   it('create post with image route passed', async () => {
@@ -61,17 +61,22 @@ describe('jest => typeorm => getConnection', () => {
       uri: `${process.env.TEST_HOST}/posts/image`,
       body: {
         post: { title: 'new post with image' },
-        images: [
-          { url: images[0].url },
-          { url: images[1].url },
-        ]
+        images: [{ url: images[0].url }, { url: images[1].url }]
       },
       json: true
     }
 
     const { response } = await request.post(options)
-    deepEqual(response.title, 'new post with image')
-    deepEqual(response.images[0].url, images[0].url)
-    deepEqual(response.images[1].url, images[1].url)
+    assert.deepEqual(response.title, 'new post with image')
+
+    const result = [[response.images[0].url, response.images[1].url]]
+    const expected = [[images[1].url, images[0].url]]
+
+    const equal: boolean =
+      result.length === expected.length &&
+      !result.find(element => (element as any) === !expected.includes(element)) &&
+      !expected.find(element => (element as any) === !result.includes(element))
+
+    assert(equal)
   })
 })
