@@ -2,8 +2,8 @@ import { createStubInstance } from 'sinon'
 import { EntityManager } from 'typeorm'
 import { deepEqual } from 'assert'
 
-import { postService } from '../../../src/services/postService'
-import { Mock, post } from '../utils'
+import { postService } from '../../src/services/postService'
+import { Mock, post } from './utils'
 
 describe('mocha => typeorm => getManager', () => {
   let mock: Mock

@@ -2,10 +2,10 @@ import { createStubInstance } from 'sinon'
 import { Repository, UpdateResult } from 'typeorm'
 import { deepEqual } from 'assert'
 
-import { postService } from '../../../src/services'
-import { Mock, post } from '../utils'
+import { postService } from '../../src/services'
+import { Mock, post } from './utils'
 
-describe('jest => typeorm => getRepository', () => {
+describe('mocha => typeorm => getRepository', () => {
   let mock: Mock
 
   it('update method passed', async () => {
