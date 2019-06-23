@@ -2,11 +2,11 @@ import { createStubInstance } from 'sinon'
 import { SelectQueryBuilder } from 'typeorm'
 import { deepEqual } from 'assert'
 
-import { postService } from '../../../src/services'
-import { Mock, post } from '../utils'
-import { Post } from '../../../src/entities'
+import { postService } from '../../src/services'
+import { Mock, post } from './utils'
+import { Post } from '../../src/entities'
 
-describe('jest => typeorm => createQueryBuilder', () => {
+describe('mocha => typeorm => createQueryBuilder', () => {
   let mock: Mock
 
   it('getById method passed', async () => {

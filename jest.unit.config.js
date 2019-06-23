@@ -2,7 +2,7 @@ module.exports = {
   verbose: true,
   rootDir: '.',
   preset: 'ts-jest',
-  testMatch: ['<rootDir>/test/unit/jest/*.test.ts'],
+  testMatch: ['<rootDir>/test/unit/*.test.ts'],
   moduleFileExtensions: [
     'ts',
     'js',
