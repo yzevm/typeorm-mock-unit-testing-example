@@ -1,0 +1,15 @@
+{
+  "extends": ["tslint:latest"],
+  "rules": {
+    "no-return-await": false,
+    "semicolon": false,
+    "quotemark": [true, "single"],
+    "trailing-comma": false,
+    "no-implicit-dependencies": [true, "dev"],
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "no-console": false,
+    "member-access": false,
+    "arrow-parens": false
+  }
+}

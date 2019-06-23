@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  # - stable
+  - 12
+  - 10
+  - 8
+
+services:
+  - docker
+
+install:
+  - npm install ci
+
+before_script:
+  - sudo service postgresql stop
+  - docker-compose up -d
+
+script:
+  - npm run lint
+  - npm run build
+  - npm run test:jest
+  - npm run test:mocha
+  - npm run test:e2e
+
+notifications:
+  email: false
