@@ -47,7 +47,7 @@
     "husky": "2.4.1",
     "jest": "24.8.0",
     "mocha": "6.1.4",
-    "request": "^2.88.0",
+    "request": "2.88.0",
     "request-promise": "4.2.4",
     "rimraf": "2.6.3",
     "sinon": "7.3.2",
@@ -58,8 +58,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
-      "post-push": "git run test"
+      "pre-push": "npm run lint"
     }
   }
 }

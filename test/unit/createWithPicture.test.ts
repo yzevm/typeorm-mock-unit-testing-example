@@ -6,7 +6,7 @@ import { postImageService } from '../../src/services'
 import { Mock, post, images } from './utils'
 import { Post } from '../../src/entities'
 
-describe('mocha => typeorm => getConnection && createQueryBuilder', () => {
+describe('typeorm => getConnection && createQueryBuilder', () => {
   let mock1: Mock
   let mock2: Mock
 

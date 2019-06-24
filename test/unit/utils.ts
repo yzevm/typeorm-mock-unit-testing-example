@@ -26,10 +26,7 @@ export class Mock {
     this.sandbox = createSandbox()
 
     if (args) {
-      this.sandbox
-        .stub(typeorm, method)
-        .withArgs(args)
-        .returns(fakeData)
+      this.sandbox.stub(typeorm, method).withArgs(args).returns(fakeData)
     } else {
       this.sandbox.stub(typeorm, method).returns(fakeData)
     }
