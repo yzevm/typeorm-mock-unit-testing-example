@@ -5,7 +5,7 @@ import { deepEqual } from 'assert'
 import { postService } from '../../src/services'
 import { Mock, post } from './utils'
 
-describe('mocha => typeorm => getRepository', () => {
+describe('typeorm => getRepository', () => {
   let mock: Mock
 
   it('update method passed', async () => {

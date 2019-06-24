@@ -16,7 +16,7 @@ It's a simple `express` server
 Run Mocha unit-tests
 
 ```sh
-npm install
+npm ci
 npm run test:mocha
 ```
 
