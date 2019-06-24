@@ -6,7 +6,7 @@ import { postService } from '../../src/services'
 import { Mock, post } from './utils'
 import { Post } from '../../src/entities'
 
-describe('mocha => typeorm => createQueryBuilder', () => {
+describe('typeorm => createQueryBuilder', () => {
   let mock: Mock
 
   it('getById method passed', async () => {

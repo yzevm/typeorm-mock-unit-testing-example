@@ -6,7 +6,7 @@ import { postService } from '../../src/services'
 import { Mock, post } from './utils'
 import { Post } from '../../src/entities'
 
-describe('mocha => typeorm => getConnection', () => {
+describe('typeorm => getConnection', () => {
   let mock: Mock
 
   it('create method passed', async () => {
