@@ -1,104 +1,17 @@
 ## TypeORM mock unit testing examples with Jest and Mocha
 
-Example how to mock TypeORM for your blazing unit tests with Mocha and Jest.
-It's a simple `express` server
-
 [![Build Status][travis-image]][travis-url]
-[![Coverage Status][coveralls-image]][coveralls-url]
-[![StackOverflow Question][so-image]][so-url]
-[![Contributions welcome][pr-image]][pr-url]
-[![License: MIT][license-image]][license-url]
 
-## Usage
+Its simple express server and e2e test.
 
-### Testing
-
-Run Mocha unit-tests
-
-```sh
-npm ci
-npm run test:mocha
-```
-
-Run Jest unit-tests
-
-```sh
-npm run test:jest
-```
-
-Run e2e tests
+## Steps to reproduce
 
 ```sh
 docker-compose up -d
+
+npm install
 npm run test:e2e
 ```
 
-### Development
-
-Run express server after changes
-
-```sh
-npm start
-```
-
-Build express server
-
-```sh
-npm run build
-```
-
-## Example
-
-```js
-import * as typeorm from 'typeorm'
-import { createSandbox, SinonSandbox, createStubInstance } from 'sinon'
-import { deepEqual } from 'assert'
-
-class Mock {
-  sandbox: SinonSandbox
-
-  constructor(method: string | any, fakeData: any, args?: any) {
-    this.sandbox = createSandbox()
-
-    if (args) {
-      this.sandbox
-        .stub(typeorm, method)
-        .withArgs(args)
-        .returns(fakeData)
-    } else {
-      this.sandbox.stub(typeorm, method).returns(fakeData)
-    }
-  }
-
-  close() {
-    this.sandbox.restore()
-  }
-}
-
-describe('mocha => typeorm => getManager', () => {
-  let mock: Mock
-
-  it('getAll method passed', async () => {
-    const fakeManager = createStubInstance(typeorm.EntityManager)
-    fakeManager.find.resolves([post])
-
-    mock = new Mock('getManager', fakeManager)
-
-    const result = await postService.getAll()
-    deepEqual(result, [post])
-  })
-
-  afterEach(() => mock.close())
-})
-```
-
-[travis-image]: https://travis-ci.org/yegorzaremba/typeorm-mock-unit-testing-example.svg?branch=master
+[travis-image]: https://travis-ci.org/yegorzaremba/typeorm-mock-unit-testing-example.svg?branch=reproduce-issue
 [travis-url]: https://travis-ci.org/yegorzaremba/typeorm-mock-unit-testing-example
-[coveralls-image]: https://coveralls.io/repos/github/YegorZaremba/typeorm-mock-unit-testing-example/badge.svg?branch=master
-[coveralls-url]: https://coveralls.io/github/YegorZaremba/typeorm-mock-unit-testing-example?branch=master
-[so-image]: https://img.shields.io/badge/StackOverflow-Question-green.svg
-[so-url]: https://stackoverflow.com/q/51482701/10432429
-[pr-image]: https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat
-[pr-url]: https://github.com/yegorzaremba/typeorm-mock-unit-testing-example/issues
-[license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
-[license-url]: https://opensource.org/licenses/MIT
