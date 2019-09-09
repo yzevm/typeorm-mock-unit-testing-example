@@ -1,10 +1,10 @@
 import { createStubInstance } from 'sinon'
-import { Repository, UpdateResult, Connection } from 'typeorm'
+import { Repository, Connection } from 'typeorm'
 import { deepEqual } from 'assert'
 
-import { postService } from '../../src/services'
-import { Mock, post } from './utils'
-import { Post } from '../../src/entities'
+import { postService } from '../../../src/services'
+import { Mock, post } from '../utils'
+import { Post } from '../../../src/entities'
 
 describe('typeorm => getConnection', () => {
   let mock: Mock

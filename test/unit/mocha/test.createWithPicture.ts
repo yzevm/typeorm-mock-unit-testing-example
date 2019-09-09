@@ -2,9 +2,9 @@ import { createStubInstance } from 'sinon'
 import { Repository, Connection, SelectQueryBuilder } from 'typeorm'
 import { deepEqual } from 'assert'
 
-import { postImageService } from '../../src/services'
-import { Mock, post, images } from './utils'
-import { Post } from '../../src/entities'
+import { postImageService } from '../../../src/services'
+import { Mock, post, images } from '../utils'
+import { Post } from '../../../src/entities'
 
 describe('typeorm => getConnection && createQueryBuilder', () => {
   let mock1: Mock

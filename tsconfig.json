@@ -8,7 +8,7 @@
     "sourceMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
   "exclude": ["build", "node_modules"]
 }
