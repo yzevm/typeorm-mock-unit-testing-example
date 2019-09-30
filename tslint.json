@@ -3,6 +3,8 @@
   "rules": {
     "no-return-await": false,
     "semicolon": false,
+    "no-shadowed-variable": false,
+    "prefer-object-spread": false,
     "quotemark": [true, "single"],
     "trailing-comma": false,
     "no-implicit-dependencies": [true, "dev"],

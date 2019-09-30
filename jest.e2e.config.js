@@ -1,5 +1,5 @@
 module.exports = {
-  verbose: true,
+  verbose: false,
   rootDir: '.',
   preset: 'ts-jest',
   globalSetup: './build/test/e2e/callSetup.js',

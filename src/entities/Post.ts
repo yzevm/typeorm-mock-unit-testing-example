@@ -6,8 +6,11 @@ export class Post {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column({ unique: true })
+  @Column()
   title: string
+
+  @Column({ default: false })
+  archived: boolean
 
   @OneToMany(_ => Image, image => image.post, { nullable: true })
   images: Image[]

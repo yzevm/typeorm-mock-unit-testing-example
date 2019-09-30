@@ -1,27 +1,34 @@
-import { createStubInstance } from 'sinon'
-import { Repository, Connection } from 'typeorm'
-import { deepEqual } from 'assert'
+import { createSandbox, SinonSandbox, spy } from 'sinon'
+import * as typeorm from 'typeorm'
+import assert from 'assert'
 
-import { postService } from '../../../src/services'
-import { Mock, post } from '../utils'
-import { Post } from '../../../src/entities'
+import { postService, PostServiceDataToCreate } from '../../../src/services'
+import { post, images } from '../../utils'
 
-describe('typeorm => getConnection', () => {
-  let mock: Mock
+describe('postService => create', () => {
+  let sandbox: SinonSandbox
 
-  it('create method passed', async () => {
-    const fakeConnection = createStubInstance(Connection)
-    const fakeRepository = createStubInstance(Repository)
-
-    fakeRepository.create.resolves([post])
-    fakeRepository.save.resolves(post)
-
-    fakeConnection.getRepository.withArgs(Post).returns(fakeRepository as any)
-    mock = new Mock('getConnection', fakeConnection)
-
-    const result = await postService.create({ title: post.title })
-    deepEqual(result, post)
+  beforeEach(() => {
+    sandbox = createSandbox()
   })
 
-  afterEach(() => mock.close())
+  afterEach(() => {
+    sandbox.restore()
+  })
+
+  it('create post with images passed', async () => {
+    const spyOnSave = spy(() => Promise.resolve(post))
+    sandbox.stub(typeorm, 'getRepository').returns({ save: spyOnSave } as any)
+
+    // @ts-ignore @docs Yeah, it's disaster, but I have already done tests for _findPostById() method (getById())
+    sandbox.stub(postService, '_findPostById').resolves('0x0')
+    const dataToCreate: PostServiceDataToCreate = { ...post, images }
+    const result = await postService.create(dataToCreate)
+
+    assert.equal(result, '0x0')
+    assert.deepEqual(spyOnSave.callCount, 3)
+    assert.deepEqual(spyOnSave.getCall(0).args, [post])
+    assert.deepEqual(spyOnSave.getCall(1).args, [{ ...images[0], post }])
+    assert.deepEqual(spyOnSave.getCall(2).args, [{ ...images[1], post }])
+  })
 })

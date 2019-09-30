@@ -55,22 +55,14 @@ import { createSandbox, SinonSandbox, createStubInstance } from 'sinon'
 import { deepEqual } from 'assert'
 
 class Mock {
-  sandbox: SinonSandbox
+  public readonly sandbox: SinonSandbox
 
-  constructor(method: string | any, fakeData: any, args?: any) {
+  constructor(method: any, fakeData: Object) {
     this.sandbox = createSandbox()
-
-    if (args) {
-      this.sandbox
-        .stub(typeorm, method)
-        .withArgs(args)
-        .returns(fakeData)
-    } else {
-      this.sandbox.stub(typeorm, method).returns(fakeData)
-    }
+    this.sandbox.stub(typeorm, method).returns(fakeData)
   }
 
-  close() {
+  public close() {
     this.sandbox.restore()
   }
 }

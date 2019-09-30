@@ -9,6 +9,9 @@ export class Image {
   @Column()
   url: string
 
+  @Column({ default: false })
+  archived: boolean
+
   @ManyToOne(_ => Post, post => post.images)
   post: Post
 }
