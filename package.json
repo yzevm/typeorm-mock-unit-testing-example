@@ -1,5 +1,5 @@
 {
-  "name": "unit",
+  "name": "typeorm-mock-unit-testing-example",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
@@ -13,7 +13,7 @@
     "lint": "npm run lint:code && npm run lint:commit",
     "test:jest": "rimraf build && tsc && jest -c jest.unit.config.js",
     "test:mocha": "rimraf build && tsc && mocha build/test/unit/mocha/test.*.js",
-    "test:e2e": "rimraf build && tsc && jest -c jest.e2e.config.js --forceExit --detectOpenHandles --coverage --coverageReporters=text-lcov | coveralls",
+    "test:e2e": "rimraf build && tsc && jest -c jest.e2e.config.js --forceExit --runInBand --detectOpenHandles --coverage --coverageReporters=text-lcov | coveralls",
     "lint:code": "tslint -c tslint.json -p tsconfig.json",
     "lint:commit": "echo \"module.exports = {extends: ['@commitlint/config-conventional']}\" > commitlint.config.js && commitlint . && rimraf commitlint.config.js"
   },
@@ -37,7 +37,7 @@
     "express": "4.17.1",
     "pg": "7.11.0",
     "reflect-metadata": "0.1.13",
-    "typeorm": "0.2.18"
+    "typeorm": "0.2.19"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
@@ -57,6 +57,6 @@
     "ts-jest": "24.0.2",
     "ts-node": "8.3.0",
     "tslint": "5.18.0",
-    "typescript": "3.5.2"
+    "typescript": "3.6.3"
   }
 }

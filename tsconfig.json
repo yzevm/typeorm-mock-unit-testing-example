@@ -4,11 +4,20 @@
     "target": "es6",
     "moduleResolution": "node",
     "outDir": "build",
-    "noImplicitAny": false,
     "sourceMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noUnusedLocals": true /* Report errors on unused locals. */,
+    "noUnusedParameters": true /* Report errors on unused parameters. */,
+    "noFallthroughCasesInSwitch": true, /* Report errors for fallthrough cases in switch statement. */
+    "strict": true, /* Enable all strict type-checking options. */
+    "noImplicitAny": true, /* Raise error on expressions and declarations with an implied 'any' type. */
+    "strictNullChecks": false,
+    "strictFunctionTypes": true, /* Enable strict checking of function types. */
+    "strictBindCallApply": true, /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
+    "noImplicitThis": true, /* Raise error on 'this' expressions with an implied 'any' type. */
+    "alwaysStrict": true /* Parse in strict mode and emit "use strict" for each source file. */
   },
   "exclude": ["build", "node_modules"]
 }

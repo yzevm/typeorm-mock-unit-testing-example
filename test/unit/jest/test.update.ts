@@ -1,27 +1,49 @@
-import { postService } from '../../../src/services'
-import { post } from '../utils'
-import { Post } from '../../../src/entities'
+import { postService, IPostServiceDataToUpdate } from '../../../src/services'
+import { post, images, helpers } from '../../utils'
 
 import typeorm = require('typeorm')
+import { Post, Image } from '../../../src/entities'
 
-describe('typeorm => getRepository', () => {
-  it('update method passed', async () => {
-    const update = jest.fn().mockResolvedValue(true)
-    const findOne = jest.fn().mockResolvedValue(post)
+describe('postService => update', () => {
+  it('update post with new images and existed images passed', async () => {
+    // @ts-ignore @docs Yeah, it's disaster, but I have already done tests for _findPostById() method (getById())
+    postService._findPostById = jest.fn().mockResolvedValue({...post, images})
 
     typeorm.getRepository = jest.fn().mockReturnValue({
-      update,
-      findOne
+      save: jest.fn().mockResolvedValue('0x0')
     })
 
-    const data = { body: post.title, id: post.id }
+    const data: IPostServiceDataToUpdate = {
+      id: 1,
+      title: 'updated title',
+      archived: true,
+      images: [
+        {
+          id: 0,
+          url: 'https://new-url',
+          archived: true
+        },
+        {
+          id: images[0].id,
+          url: 'updated url',
+          archived: true
+        }
+      ]
+    }
+
     const result = await postService.update(data)
 
-    expect(result).toEqual(post)
+    expect(result).toEqual(true)
 
-    expect(typeorm.getRepository).toHaveBeenNthCalledWith(1, Post)
+    expect(typeorm.getRepository).toHaveBeenNthCalledWith(1, Image)
+    // @todo 1st call, re-write data?
 
-    expect(update).toHaveBeenNthCalledWith(1, data.id, data.body)
-    expect(findOne).toHaveBeenNthCalledWith(1, data.id)
+    expect(typeorm.getRepository).toHaveBeenNthCalledWith(2, Image)
+    expect(typeorm.getRepository(Image).save).toHaveBeenNthCalledWith(2, data.images[1])
+
+    expect(typeorm.getRepository).toHaveBeenNthCalledWith(3, Post)
+    const justUpdatedPost = helpers.omit(data, ['images'])
+    expect(typeorm.getRepository(Post).save)
+      .toHaveBeenNthCalledWith(3, { ...justUpdatedPost, images: [...images, '0x0'] })
   })
 })

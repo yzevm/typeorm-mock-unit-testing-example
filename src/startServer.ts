@@ -3,8 +3,9 @@ import express from 'express'
 import { createConnection, ConnectionOptions } from 'typeorm'
 
 import { Post, Image } from './entities'
-import { startSeeding } from './seed'
-import postController from './controllers/postController'
+import startSeeding from '../test/e2e/seed'
+import { postController } from './controllers'
+import { Server } from 'http'
 
 const connectionOptions: ConnectionOptions = {
   type: 'postgres',
@@ -22,20 +23,20 @@ const connectionOptions: ConnectionOptions = {
 const router = express.Router()
 router.use('/posts', postController)
 
-export const startServer = async (E2E_TEST: boolean = false) => {
+export default async (E2E_TEST: boolean = false): Promise<Server> => {
   const app = express()
   app.use(express.json(), express.urlencoded({ extended: true }))
   app.use('/api', router)
 
   try {
-    await createConnection({ ...connectionOptions, dropSchema: E2E_TEST ? true : false })
+    await createConnection({ ...connectionOptions, dropSchema: E2E_TEST })
     if (E2E_TEST) {
       await startSeeding()
     }
 
     const PORT = 3000
     return app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
-  } catch (error) {
-    console.log('Launch postgres via this command: "docker-compose up -d"')
+  } catch {
+    throw new Error('Launch postgres via this command: "docker-compose up -d"')
   }
 }

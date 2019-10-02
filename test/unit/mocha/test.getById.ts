@@ -1,27 +1,35 @@
-import { createStubInstance } from 'sinon'
-import { SelectQueryBuilder } from 'typeorm'
-import { deepEqual } from 'assert'
+import { createStubInstance, createSandbox, SinonSandbox } from 'sinon'
+import * as typeorm from 'typeorm'
+import assert from 'assert'
 
 import { postService } from '../../../src/services'
-import { Mock, post } from '../utils'
+import { post } from '../../utils'
 import { Post } from '../../../src/entities'
 
-describe('typeorm => createQueryBuilder', () => {
-  let mock: Mock
+describe('postService => getById', () => {
+  let sandbox: SinonSandbox
 
-  it('getById method passed', async () => {
-    const fakeQueryBuilder = createStubInstance(SelectQueryBuilder)
-
-    fakeQueryBuilder.select.withArgs('post' as any).returnsThis()
-    fakeQueryBuilder.from.withArgs(Post, 'post').returnsThis()
-    fakeQueryBuilder.where.withArgs('post.id = :id', { id: 777 }).returnsThis()
-    fakeQueryBuilder.getOne.resolves(post)
-
-    mock = new Mock('createQueryBuilder', fakeQueryBuilder, Post)
-
-    const result = await postService.getById(post.id)
-    deepEqual(result, post)
+  beforeEach(() => {
+    sandbox = createSandbox()
   })
 
-  afterEach(() => mock.close())
+  afterEach(() => {
+    sandbox.restore()
+  })
+
+  it('getById method passed', async () => {
+    const fakeQueryBuilder = createStubInstance(typeorm.SelectQueryBuilder)
+
+    fakeQueryBuilder.select.withArgs(['post']).returnsThis()
+    fakeQueryBuilder.from.withArgs(Post, 'post').returnsThis()
+    fakeQueryBuilder.leftJoinAndSelect.withArgs('post.images', 'image').returnsThis()
+    fakeQueryBuilder.where.withArgs('post.id = :id', { id: post.id }).returnsThis()
+    fakeQueryBuilder.orderBy.withArgs({ image: 'ASC' }).returnsThis()
+    fakeQueryBuilder.getOne.resolves('0x0')
+
+    sandbox.stub(typeorm, 'createQueryBuilder').returns(fakeQueryBuilder as any)
+
+    const result = await postService.getById(post.id)
+    assert.equal(result, '0x0')
+  })
 })

@@ -1,22 +1,36 @@
-import { createStubInstance } from 'sinon'
-import { EntityManager } from 'typeorm'
-import { deepEqual } from 'assert'
+import { createStubInstance, createSandbox, SinonSandbox } from 'sinon'
+import * as typeorm from 'typeorm'
+import assert from 'assert'
 
 import { postService } from '../../../src/services/postService'
-import { Mock, post } from '../utils'
+import { Post } from '../../../src/entities'
 
-describe('typeorm => getManager', () => {
-  let mock: Mock
+describe('postService => getAll', () => {
+  let sandbox: SinonSandbox
 
-  it('getAll method passed', async () => {
-    const fakeManager = createStubInstance(EntityManager)
-    fakeManager.find.resolves([post])
-
-    mock = new Mock('getManager', fakeManager)
-
-    const result = await postService.getAll()
-    deepEqual(result, [post])
+  beforeEach(() => {
+    sandbox = createSandbox()
   })
 
-  afterEach(() => mock.close())
+  afterEach(() => {
+    sandbox.restore()
+  })
+
+  it('getAll method passed', async () => {
+    const fakeRepository = createStubInstance(typeorm.Repository)
+    const fakeQueryBuilder = createStubInstance(typeorm.SelectQueryBuilder)
+    const fakeConnection = createStubInstance(typeorm.Connection)
+
+    fakeQueryBuilder.leftJoinAndSelect.withArgs('post.images', 'image').returnsThis()
+    fakeQueryBuilder.orderBy.withArgs({ post: 'ASC', image: 'ASC' }).returnsThis()
+    fakeQueryBuilder.getMany.resolves(['0x0'])
+
+    fakeRepository.createQueryBuilder.withArgs('post').returns(fakeQueryBuilder as any)
+    fakeConnection.getRepository.withArgs(Post).returns(fakeRepository as any)
+
+    sandbox.stub(typeorm, 'getConnection').returns(fakeConnection as any)
+
+    const result = await postService.getAll()
+    assert.deepEqual(result, ['0x0'])
+  })
 })
