@@ -49,7 +49,7 @@ npm run build
 
 ## Example
 
-#### Sourse code
+#### Source code
 ```js
 class PostService {
   public getById(id: number): Promise<Post> {
