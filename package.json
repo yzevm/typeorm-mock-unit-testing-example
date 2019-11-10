@@ -13,7 +13,7 @@
     "lint": "npm run lint:code && npm run lint:commit",
     "test:jest": "rimraf build && tsc && jest -c jest.unit.config.js",
     "test:mocha": "rimraf build && tsc && mocha build/test/unit/mocha/test.*.js",
-    "test:e2e": "rimraf build && tsc && jest -c jest.e2e.config.js --forceExit --runInBand --detectOpenHandles --coverage --coverageReporters=text-lcov | coveralls",
+    "test:e2e": "rimraf build && tsc && jest -c jest.e2e.config.js --forceExit --runInBand --detectOpenHandles --coverage --coverageReporters=text-lcov",
     "lint:code": "tslint -c tslint.json -p tsconfig.json",
     "lint:commit": "echo \"module.exports = {extends: ['@commitlint/config-conventional']}\" > commitlint.config.js && commitlint . && rimraf commitlint.config.js"
   },
