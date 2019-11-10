@@ -20,7 +20,7 @@ script:
   - npm run build
   - npm run test:jest
   - npm run test:mocha
-  - npm run test:e2e
+  # - npm run test:e2e
 
 notifications:
   email: false
