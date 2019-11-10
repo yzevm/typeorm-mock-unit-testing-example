@@ -49,38 +49,80 @@ npm run build
 
 ## Example
 
+#### Sourse code
 ```js
-import * as typeorm from 'typeorm'
-import { createSandbox, SinonSandbox, createStubInstance } from 'sinon'
-import { deepEqual } from 'assert'
-
-class Mock {
-  public readonly sandbox: SinonSandbox
-
-  constructor(method: any, fakeData: Object) {
-    this.sandbox = createSandbox()
-    this.sandbox.stub(typeorm, method).returns(fakeData)
+class PostService {
+  public getById(id: number): Promise<Post> {
+    return this._findPostById(id)
   }
 
-  public close() {
-    this.sandbox.restore()
+  private _findPostById(id: number): Promise<Post> {
+    return createQueryBuilder()
+      .select(['post'])
+      .from(Post, 'post')
+      .leftJoinAndSelect('post.images', 'image')
+      .where('post.id = :id', { id })
+      .orderBy({ image: 'ASC' })
+      .getOne()
   }
 }
+```
 
-describe('mocha => typeorm => getManager', () => {
-  let mock: Mock
+#### Jest
+```js
+describe('postService => getById', () => {
+  it('getById method passed', async () => {
+    typeorm.createQueryBuilder = jest.fn().mockReturnValue({
+      select: jest.fn().mockReturnThis(),
+      from: jest.fn().mockReturnThis(),
+      leftJoinAndSelect: jest.fn().mockReturnThis(),
+      where: jest.fn().mockReturnThis(),
+      orderBy: jest.fn().mockReturnThis(),
+      getOne: jest.fn().mockResolvedValue('0x0')
+    })
+    const result = await postService.getById(post.id)
 
-  it('getAll method passed', async () => {
-    const fakeManager = createStubInstance(typeorm.EntityManager)
-    fakeManager.find.resolves([post])
+    expect(result).toEqual('0x0')
 
-    mock = new Mock('getManager', fakeManager)
+    const qBuilder = typeorm.createQueryBuilder()
+    expect(qBuilder.select).toHaveBeenNthCalledWith(1, ['post'])
+    expect(qBuilder.from).toHaveBeenNthCalledWith(1, Post, 'post')
+    expect(qBuilder.leftJoinAndSelect).toHaveBeenNthCalledWith(1, 'post.images', 'image')
+    expect(qBuilder.where).toHaveBeenNthCalledWith(1, 'post.id = :id', { id: post.id })
+    expect(qBuilder.orderBy).toHaveBeenNthCalledWith(1, { image: 'ASC' })
+    expect(qBuilder.getOne).toHaveBeenNthCalledWith(1)
+  })
+})
+```
 
-    const result = await postService.getAll()
-    deepEqual(result, [post])
+#### Sinon
+```js
+describe('postService => getById', () => {
+  let sandbox: SinonSandbox
+
+  beforeEach(() => {
+    sandbox = createSandbox()
   })
 
-  afterEach(() => mock.close())
+  afterEach(() => {
+    sandbox.restore()
+  })
+
+  it('getById method passed', async () => {
+    const fakeQueryBuilder = createStubInstance(typeorm.SelectQueryBuilder)
+
+    fakeQueryBuilder.select.withArgs(['post']).returnsThis()
+    fakeQueryBuilder.from.withArgs(Post, 'post').returnsThis()
+    fakeQueryBuilder.leftJoinAndSelect.withArgs('post.images', 'image').returnsThis()
+    fakeQueryBuilder.where.withArgs('post.id = :id', { id: post.id }).returnsThis()
+    fakeQueryBuilder.orderBy.withArgs({ image: 'ASC' }).returnsThis()
+    fakeQueryBuilder.getOne.resolves('0x0')
+
+    sandbox.stub(typeorm, 'createQueryBuilder').returns(fakeQueryBuilder as any)
+
+    const result = await postService.getById(post.id)
+    assert.equal(result, '0x0')
+  })
 })
 ```
 
