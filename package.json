@@ -34,7 +34,7 @@
   ],
   "author": "YegorZaremba <egorzaremba@gmail.com>",
   "dependencies": {
-    "express": "4.17.1",
+    "express": "4.17.3",
     "pg": "7.11.0",
     "reflect-metadata": "0.1.13",
     "typeorm": "0.2.19"
