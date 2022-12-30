@@ -49,7 +49,7 @@
     "@types/sinon": "7.0.13",
     "coveralls": "3.0.4",
     "jest": "24.8.0",
-    "mocha": "6.1.4",
+    "mocha": "10.2.0",
     "request": "2.88.0",
     "request-promise": "4.2.4",
     "rimraf": "2.6.3",
